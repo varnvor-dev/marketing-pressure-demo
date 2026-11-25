@@ -3726,19 +3726,19 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
       </div>
 
-      <!-- ==================== EVENT SLIDE-OVER ==================== -->
+      <!-- ==================== SCHEDULE SEND MODAL ==================== -->
       <div x-show="epanel.open" x-transition.opacity.duration.150ms class="fixed inset-0 sl-backdrop z-40" @click="epanel.open=false" aria-hidden="true"></div>
-      <div x-show="epanel.open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
-           x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-           class="fixed top-[var(--slds-chrome-h)] bottom-0 right-0 w-[28rem] max-w-full bg-[var(--slds-card)] border-l border-[var(--slds-border)] shadow-[var(--slds-shadow-2)] z-40 flex flex-col"
-           role="dialog" aria-modal="true" :aria-label="epanel.form.eventId ? 'Edit scheduled send' : 'Schedule send'" @keydown.tab="trapTab($event)">
-        <div class="h-[3.5rem] px-[1rem] flex items-center justify-between gap-[0.5rem] border-b border-[var(--slds-border)] shrink-0">
+      <div x-show="epanel.open" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 scale-[0.98]" x-transition:enter-end="opacity-100 scale-100"
+           class="fixed inset-0 z-40 flex items-center justify-center p-[1rem] pointer-events-none">
+        <div class="pointer-events-auto anim-rise w-full max-w-lg sl-modal flex flex-col max-h-[calc(100vh-2rem)]"
+             role="dialog" aria-modal="true" :aria-label="epanel.form.eventId ? 'Edit scheduled send' : 'Schedule send'" @keydown.tab="trapTab($event)">
+        <div class="sl-modal-head flex items-center justify-between gap-[0.5rem] shrink-0">
           <h3 class="sl-modal-title truncate" x-text="epanel.form.eventId ? 'Edit scheduled send' : 'Schedule send'"></h3>
-          <button type="button" class="fv sl-btn-icon shrink-0" @click="epanel.open=false" aria-label="Close panel">
+          <button type="button" class="fv sl-btn-icon shrink-0" @click="epanel.open=false" aria-label="Close dialog">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>
-        <div class="flex-1 overflow-y-auto thin-scroll p-[1rem] space-y-[1rem]">
+        <div class="flex-1 overflow-y-auto thin-scroll px-[1.5rem] py-[1rem] space-y-[1rem]">
           <div>
             <label class="sl-label" for="ef-camp">Campaign <span class="text-[var(--slds-error)]">*</span></label>
             <select id="ef-camp" x-model="epanel.form.campaignId" data-autofocus class="fv sl-select">
@@ -3807,7 +3807,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
             <textarea id="ef-notes" x-model="epanel.form.notes" maxlength="500" rows="2" class="fv sl-textarea"></textarea>
           </div>
         </div>
-        <div class="shrink-0 border-t border-[var(--slds-border)] px-[1rem] py-[0.75rem] flex items-center justify-between gap-[0.5rem] bg-[var(--slds-sunken)]">
+        <div class="sl-modal-foot shrink-0 flex items-center justify-between gap-[0.5rem]">
           <button type="button" x-show="epanel.form.eventId" class="fv-rose sl-btn sl-btn-text-destructive" @click="askEventDelete(epanel.form)">Delete&hellip;</button>
           <div class="ml-auto flex items-center gap-[0.5rem]">
             <button type="button" class="fv sl-btn sl-btn-neutral" @click="epanel.open=false">Cancel</button>
@@ -3817,24 +3817,28 @@ Check your Browserslist config to be sure that your targets are set up correctly
             </button>
           </div>
         </div>
+        </div>
       </div>
 
-      <!-- ==================== RULE BUILDER SLIDE-OVER ==================== -->
+      <!-- ==================== RULE BUILDER MODAL ====================
+           Centred, like every other create/edit surface. Editing a record is a
+           focused task, so it gets a dialog; only the list FILTER panel docks to
+           the side, which is what Lightning itself does. -->
       <div x-show="rpanel.open" x-transition.opacity.duration.150ms class="fixed inset-0 sl-backdrop z-40" @click="closeRulePanel()" aria-hidden="true"></div>
-      <div x-show="rpanel.open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
-           x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-           class="fixed top-[var(--slds-chrome-h)] bottom-0 right-0 w-[30rem] max-w-full bg-[var(--slds-card)] border-l border-[var(--slds-border)] shadow-[var(--slds-shadow-2)] z-40 flex flex-col"
-           role="dialog" aria-modal="true" :aria-label="rpanel.form.ruleId ? 'Edit send limit' : 'New send limit'" @keydown.tab="trapTab($event)">
-        <div class="h-[3.5rem] px-[1rem] flex items-center justify-between gap-[0.5rem] border-b border-[var(--slds-border)] shrink-0">
+      <div x-show="rpanel.open" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 scale-[0.98]" x-transition:enter-end="opacity-100 scale-100"
+           class="fixed inset-0 z-40 flex items-center justify-center p-[1rem] pointer-events-none">
+        <div class="pointer-events-auto anim-rise w-full max-w-xl sl-modal flex flex-col max-h-[calc(100vh-2rem)]"
+             role="dialog" aria-modal="true" :aria-label="rpanel.form.ruleId ? 'Edit send limit' : 'New send limit'" @keydown.tab="trapTab($event)">
+        <div class="sl-modal-head flex items-center justify-between gap-[0.5rem] shrink-0">
           <h3 class="sl-modal-title flex items-center gap-[0.5rem] min-w-0">
             <span class="truncate" x-text="rpanel.form.ruleId ? 'Edit send limit' : 'New send limit'"></span>
             <span x-show="ruleQueue.length>1" class="sl-badge sl-badge-ai shrink-0" x-text="'Rule ' + (ruleQueuePos+1) + ' of ' + ruleQueue.length"></span>
           </h3>
-          <button type="button" class="fv sl-btn-icon shrink-0" @click="closeRulePanel()" aria-label="Close panel">
+          <button type="button" class="fv sl-btn-icon shrink-0" @click="closeRulePanel()" aria-label="Close dialog">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>
-        <div class="flex-1 overflow-y-auto thin-scroll p-[1rem] space-y-[1rem]">
+        <div class="flex-1 overflow-y-auto thin-scroll px-[1.5rem] py-[1rem] space-y-[1rem]">
           <div>
             <label class="sl-label" for="rf-name">Rule name <span class="text-[var(--slds-error)]">*</span></label>
             <input id="rf-name" type="text" x-model="rpanel.form.name" maxlength="200" data-autofocus placeholder="e.g. Promotional email daily cap"
@@ -3953,12 +3957,13 @@ Check your Browserslist config to be sure that your targets are set up correctly
             <textarea id="rf-notes" x-model="rpanel.form.notes" maxlength="500" rows="2" class="fv sl-textarea"></textarea>
           </div>
         </div>
-        <div class="shrink-0 border-t border-[var(--slds-border)] px-[1rem] py-[0.75rem] flex items-center justify-end gap-[0.5rem] bg-[var(--slds-sunken)]">
+        <div class="sl-modal-foot shrink-0 flex items-center justify-end gap-[0.5rem]">
           <button type="button" class="fv sl-btn sl-btn-neutral" @click="closeRulePanel()">Cancel</button>
           <button type="button" class="fv sl-btn sl-btn-brand"
                   :disabled="rpanel.busy" @click="saveRule()">
             <span x-text="rpanel.busy ? 'Saving…' : 'Save rule'"></span>
           </button>
+        </div>
         </div>
       </div>
 
@@ -4166,6 +4171,27 @@ Check your Browserslist config to be sure that your targets are set up correctly
    at the very top of this file.
    ================================================================ */
 'use strict';
+
+/* ---------------- storage, safely ----------------
+   localStorage is not always there to be used: it throws in Safari private
+   browsing, when a browser blocks third-party storage in an iframe, and on
+   file:// in some Chrome configurations. Every preference this app stores is a
+   convenience (last tab, chosen list view, demo/live toggle), so losing it must
+   never be fatal — an unguarded read in the Alpine initializer would stop the
+   whole app from starting. These three wrappers degrade to in-memory instead. */
+const memStore = {};
+function lsGet(k) {
+  try { const v = window.localStorage.getItem(k); return v === null ? (k in memStore ? memStore[k] : null) : v; }
+  catch (e) { return k in memStore ? memStore[k] : null; }
+}
+function lsSet(k, v) {
+  memStore[k] = String(v);
+  try { window.localStorage.setItem(k, String(v)); } catch (e) { /* session-only; fine */ }
+}
+function lsDel(k) {
+  delete memStore[k];
+  try { window.localStorage.removeItem(k); } catch (e) { }
+}
 
 /* ---------------- CONFIG ---------------- */
 const PRESSURE_CONFIG = {
@@ -5276,7 +5302,7 @@ document.addEventListener('alpine:init', () => {
     route: 'home',
     mock: true, dataSource: 'auto', mockReason: '',
     /* Workflow guardrail only — see canEditCampaign(). Not a security boundary. */
-    adminMode: localStorage.getItem('pressure.adminMode') === '1',
+    adminMode: lsGet('pressure.adminMode') === '1',
     buLabel: '',
     isMdUp: true, isLgUp: true,
     /* ---- Lightning chrome (presentation only; no API surface of its own) ----
@@ -5366,8 +5392,8 @@ document.addEventListener('alpine:init', () => {
 
     init() {
       this.mockReason = configMockReason();
-      this.dataSource = localStorage.getItem('pressure.dataSource') || 'auto';
-      this.buLabel = localStorage.getItem('pressure.buLabel') || '';
+      this.dataSource = lsGet('pressure.dataSource') || 'auto';
+      this.buLabel = lsGet('pressure.buLabel') || '';
       this.restoreHomeTab();
       this.computeMock();
       const mdq = window.matchMedia('(min-width: 768px)');
@@ -5415,22 +5441,22 @@ document.addEventListener('alpine:init', () => {
       else this.mock = forced;
     },
     apiUrlDisplay() { return PRESSURE_CONFIG.API_URL; },
-    saveBuLabel() { localStorage.setItem('pressure.buLabel', this.buLabel || ''); },
+    saveBuLabel() { lsSet('pressure.buLabel', this.buLabel || ''); },
     async setDataSource(v) {
       if (v === 'mock') {
-        this.dataSource = 'mock'; localStorage.setItem('pressure.dataSource', 'mock');
+        this.dataSource = 'mock'; lsSet('pressure.dataSource', 'mock');
         this.mock = true; this.toast('success', 'Mock mode on', 'Using bundled sample data.');
         this.pingHealth(); this.loadRoute(); return;
       }
       if (v === 'auto') {
-        this.dataSource = 'auto'; localStorage.removeItem('pressure.dataSource');
+        this.dataSource = 'auto'; lsDel('pressure.dataSource');
         this.computeMock(); this.toast('success', 'Auto-detect restored', this.mock ? 'Config forces mock mode.' : 'Live mode active.');
         this.pingHealth(); this.loadRoute(); return;
       }
       if (configForcesMockFn()) { this.toast('error', 'Cannot switch to Live', this.mockReason); return; }
       try {
         const d = await liveApi('health', {});
-        this.dataSource = 'live'; localStorage.setItem('pressure.dataSource', 'live');
+        this.dataSource = 'live'; lsSet('pressure.dataSource', 'live');
         this.mock = false;
         this.health = { ok: true, version: d.version, serverTime: d.serverTime, provisioned: d.provisioned };
         this.toast('success', 'Live mode on', 'API v' + d.version + ' reachable.');
@@ -6017,11 +6043,11 @@ document.addEventListener('alpine:init', () => {
     homeSetTab(t) {
       if (!this.homeTabs().includes(t)) return;
       this.home.tab = t;
-      try { localStorage.setItem(HOME_LS.tab, t); } catch (e) { }
+      try { lsSet(HOME_LS.tab, t); } catch (e) { }
     },
     restoreHomeTab() {
       try {
-        const v = localStorage.getItem(HOME_LS.tab);
+        const v = lsGet(HOME_LS.tab);
         if (v && this.homeTabs().includes(v)) this.home.tab = v;
       } catch (e) { }
     },
@@ -6813,24 +6839,24 @@ document.addEventListener('alpine:init', () => {
     /* ---- persistence (same pressure.* key convention as the rest of the app) ---- */
     persistCampList() {
       try {
-        localStorage.setItem(CAMP_LS.view, this.camp.view);
-        localStorage.setItem(CAMP_LS.sort, JSON.stringify({ col: this.camp.sortCol, dir: this.camp.sortDir }));
-        localStorage.setItem(CAMP_LS.filters, JSON.stringify(this.camp.filters));
+        lsSet(CAMP_LS.view, this.camp.view);
+        lsSet(CAMP_LS.sort, JSON.stringify({ col: this.camp.sortCol, dir: this.camp.sortDir }));
+        lsSet(CAMP_LS.filters, JSON.stringify(this.camp.filters));
       } catch (e) { }
     },
     restoreCampList() {
       try {
-        const v = localStorage.getItem(CAMP_LS.view);
+        const v = lsGet(CAMP_LS.view);
         if (v && this.campViews.some(x => x.id === v)) this.camp.view = v;
         const view = this.campView();
         this.camp.status = view.status;
         this.camp.sortCol = view.sortCol;
         this.camp.sortDir = view.sortDir;
-        const s = JSON.parse(localStorage.getItem(CAMP_LS.sort) || 'null');
+        const s = JSON.parse(lsGet(CAMP_LS.sort) || 'null');
         if (s && this.campColumns.some(c => c.key === s.col) && (s.dir === 'asc' || s.dir === 'desc')) {
           this.camp.sortCol = s.col; this.camp.sortDir = s.dir;
         }
-        const f = JSON.parse(localStorage.getItem(CAMP_LS.filters) || 'null');
+        const f = JSON.parse(lsGet(CAMP_LS.filters) || 'null');
         if (f && typeof f === 'object') {
           const clean = blankCampFilters();
           CAMP_FILTER_GROUPS.forEach(g => {
@@ -6943,8 +6969,8 @@ document.addEventListener('alpine:init', () => {
     adminEditing() { return this.adminMode && this.isLockedStatus(this.cpanel.form.status) && this.cpanel.form.status !== 'Archived'; },
     setAdminMode(v) {
       this.adminMode = !!v;
-      if (this.adminMode) localStorage.setItem('pressure.adminMode', '1');
-      else localStorage.removeItem('pressure.adminMode');
+      if (this.adminMode) lsSet('pressure.adminMode', '1');
+      else lsDel('pressure.adminMode');
       if (!this.adminMode && this.rec.editing && !this.canEditCampaign()) this.recCancel();
       this.toast(this.adminMode ? 'info' : 'success',
         this.adminMode ? 'Administrator mode on' : 'Administrator mode off',
