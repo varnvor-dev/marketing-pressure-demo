@@ -8009,9 +8009,11 @@ DEVIATIONS (v2 rebuild; the API contract and the v2 UX doc win over everything e
     a continuous 3px rule. The sidebar, the mobile drawer and the old 48px topbar are gone,
     along with the now-dead `mobileNav` state and the `.sl-nav-item` recipe. Three chrome
     decisions the spec leaves open:
-    (a) "New campaign" sits in the nav bar's tertiary zone (§B.6 gives that zone no styling
-        of its own). It is the product's one global action and every screen except Home,
-        Campaigns and Calendar would otherwise lose its entry point.
+    (a) Global create is the "+" quick-create button in the GLOBAL HEADER, and the nav bar's
+        tertiary zone is left empty. It began in the tertiary zone as a labelled brand button,
+        but on Campaigns that put two identical blue primaries ~45px apart; Salesforce's own
+        answer is a compact "+" in the header beside the gear, leaving the list view its own
+        "New campaign". Every screen still has a global entry point.
     (b) The app name carries no dropdown caret. SLDS puts the app name in a dropdown
         trigger, but this product has no app switcher other than the waffle, and a caret
         that opens nothing would be furniture implying a capability that does not exist.
